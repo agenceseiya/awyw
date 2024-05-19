@@ -10,21 +10,20 @@ bot.on('message', async (msg) => {
   const userMessage = msg.text;
 
   try {
-    // Send the user message to the custom GPT model
-    const openaiResponse = await axios.post(
-      'https://api.openai.com/v1/engines/davinci-codex/completions',
+    // Send the user message to your custom assistant
+    const assistantResponse = await axios.post(
+      process.env.ASSISTANT_API_URL,
       {
         prompt: userMessage,
-        max_tokens: 50,
       },
       {
         headers: {
-          'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+          'Authorization': `Bearer ${process.env.ASSISTANT_API_KEY}`,
         },
       }
     );
 
-    const responseText = openaiResponse.data.choices[0].text.trim();
+    const responseText = assistantResponse.data.reply; // Adjust based on your API response structure
 
     // Send the response back to the user
     bot.sendMessage(chatId, responseText);
