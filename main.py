@@ -12,6 +12,10 @@ API_HASH = os.getenv('TELEGRAM_API_HASH')
 BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 
+if not all([API_ID, API_HASH, BOT_TOKEN, OPENAI_API_KEY]):
+    logging.error("One or more environment variables are missing")
+    raise ValueError("One or more environment variables are missing")
+
 # Initialize the Telegram client
 client = TelegramClient('bot', API_ID, API_HASH).start(bot_token=BOT_TOKEN)
 
